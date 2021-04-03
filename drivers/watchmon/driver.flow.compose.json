@@ -1,0 +1,101 @@
+{
+  "triggers": [
+    {
+      "id": "operational_status_changed",
+      "title": {
+        "en": "Status changed",
+        "sv": "Status ändrades"
+      },
+      "titleFormatted": {
+        "en": "Status changed to [[status]]",
+        "sv": "Status ändrades till [[status]]"
+      },
+      "tokens": [
+        {
+          "name": "status",
+          "type": "string",
+          "title": {
+            "en": "Status",
+            "sv": "Status"
+          },
+          "example": {
+            "en": "Idle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "charge_rate_status_changed",
+      "title": {
+        "en": "Charge rate state changed",
+        "sv": "Laddhastigheten ändrades"
+      },
+      "titleFormatted": {
+        "en": "Charge rate state changed to [[status]]",
+        "sv": "Laddhastigheten ändrades till [[status]]"
+      },
+      "tokens": [
+        {
+          "name": "status",
+          "type": "string",
+          "title": {
+            "en": "Status",
+            "sv": "Status"
+          },
+          "example": {
+            "en": "Off"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discharge_rate_status_changed",
+      "title": {
+        "en": "Discharge rate state changed",
+        "sv": "Urladdningshastigheten ändrades"
+      },
+      "titleFormatted": {
+        "en": "Discharge rate state changed to [[status]]",
+        "sv": "Urladdningshastigheten ändrades till [[status]]"
+      },
+      "tokens": [
+        {
+          "name": "status",
+          "type": "string",
+          "title": {
+            "en": "Status",
+            "sv": "Status"
+          },
+          "example": {
+            "en": "Off"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cell_volt_diff_changed",
+      "title": {
+        "en": "Maximum cell volt difference changed",
+        "sv": "Största cell volt skillnaden ändrades"
+      },
+      "titleFormatted": {
+        "en": "Maximum cell volt difference changed to [[difference]]",
+        "sv": "Största cell volt skillnaden ändrades [[difference]]"
+      },
+      "tokens": [
+        {
+          "name": "difference",
+          "type": "number",
+          "title": {
+            "en": "Difference (mV)",
+            "sv": "Skillnad (mV)"
+          },
+          "example": {
+            "en": "80"
+          }
+        }
+      ]
+    }
+  ],
+  "conditions": []
+}

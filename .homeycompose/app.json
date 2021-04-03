@@ -1,0 +1,55 @@
+{
+  "id": "com.batrium",
+  "version": "0.9.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "Batrium",
+    "sv": "Batrium"
+  },
+  "brandColor": "#00adef",
+  "description": {
+    "en": "Batteries Made Smarter",
+    "sv": "Smartare Batterier"
+  },
+  "category": [
+    "energy"
+  ],
+  "tags": {
+    "en": [
+      "batrium",
+      "bms",
+      "watchmon",
+      "battery",
+      "energy"
+    ],
+    "sv": [
+      "batrium",
+      "bms",
+      "watchmon",
+      "batteri",
+      "energi"
+    ]
+  },
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Richard Barkestam",
+    "email": "richard@barkestam.se"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "RBarkestam",
+        "currency": "EUR"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/ricott/homey-com.batrium/issues"
+  },
+  "source": "https://github.com/ricott/homey-com.batrium"
+}

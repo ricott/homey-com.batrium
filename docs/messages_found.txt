@@ -1,0 +1,112 @@
+Msg_415a_CellNodeStatus
+Adding to messageIds: 415a
+
+Msg_4232_CellNodeFull
+Adding to messageIds: 4232
+
+Msg_4733_StatusControlLogic
+Adding to messageIds: 4733
+
+Msg_3e33_StatusCellStats
+Adding to messageIds: 3e33
+
+Msg_3f34_StatusShunt
+Adding to messageIds: 3f34
+
+Msg_6133_StatusComms
+Adding to messageIds: 6133
+
+Msg_4932_ControlRemoteStatus
+Adding to messageIds: 4932
+
+Msg_5158_ControlDischargeSetup
+Adding to messageIds: 5158
+
+Msg_5732_SystemDiscovery
+Adding to messageIds: 5732
+{
+  messageId: '5732',
+  systemId: 7364,
+  systemFirmwareVersion: 1039,
+  systemHardwareVersion: 1027,
+  systemOpStatus: 8,
+  minCellVolt: 2.02,
+  maxCellVolt: 3.48,
+  minCellTemp: 11,
+  numOfCellsActive: 64,
+  ShuntSOC: 93.5,
+  shuntVoltage: 53.21,
+  shuntCurrent: -0.08146306610107422
+}
+
+Msg_5233_ControlThermalSetup
+Adding to messageIds: 5233
+
+****Msg_3233_LiveDisplay, 20s interval
+Adding to messageIds: 3233
+{
+  messageId: '3233',
+  systemId: 7364,
+  systemOpStatus: 8,
+  minCellVolt: 2.01,
+  maxCellVolt: 3.48,
+  minCellTemp: 11,
+  maxCellTemp: 14,
+  shuntVoltage: 53.21,
+  shuntCurrent: -0.08743331146240234,
+  shuntPowerVA: -0.004652650356292725,
+  ShuntSOC: 93.89,
+  nomCapacityToEmpty: 53844.164,
+  shuntCumulkWhCharge: -0.004652650356292725,
+  shuntCumulkWhDischg: 0.0884480972290039
+}
+
+
+
+Msg_4e58_ControlRemoteSetup
+Adding to messageIds: 4e58
+
+Msg_5432_DailySession
+Adding to messageIds: 5432
+
+-Adding to messageIds: 5a31
+
+Msg_7832_HwShuntMetrics
+Adding to messageIds: 7832
+
+-Adding to messageIds: 5b31
+-Adding to messageIds: 5931
+-Adding to messageIds: 5932
+
+Msg_5635_LifetimeMetricsA
+Adding to messageIds: 5635
+
+Msg_4a36_HwSystemSetup
+Adding to messageIds: 4a36
+
+Msg_4b36_HwCellGroupSetup
+Adding to messageIds: 4b36
+
+Msg_4c34_HwShuntSetup
+Adding to messageIds: 4c34
+
+Msg_4d34_HwExpansionSetup
+Adding to messageIds: 4d34
+
+Msg_5335_HwIntegrationSetup
+Adding to messageIds: 5335
+
+Msg_4f33_ControlCriticalSetup
+Adding to messageIds: 4f33
+
+Msg_5033_ControlChargeSetup
+Adding to messageIds: 5033
+
+Msg_6831_QuickSessionHist
+Adding to messageIds: 6831
+
+Msg_5634_LifetimeMetricsB
+Adding to messageIds: 5634
+
+Msg_4033_StatusSlow
+Adding to messageIds: 4033

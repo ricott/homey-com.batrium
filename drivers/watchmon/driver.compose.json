@@ -1,0 +1,179 @@
+{
+  "name": {
+    "en": "Watchmon",
+    "sv": "Watchmon"
+  },
+  "images": {
+    "large": "drivers/watchmon/assets/images/large.png",
+    "small": "drivers/watchmon/assets/images/small.png"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "operational_status",
+    "battery_capacity",
+    "measure_voltage",
+    "measure_current",
+    "measure_voltage.cellMin",
+    "measure_voltage.cellMax",
+    "measure_temperature.cellMin",
+    "measure_temperature.cellMax",
+    "operational_status.ChargePowerRate",
+    "operational_status.DischargePowerRate",
+    "meter_power.charge",
+    "meter_power.discharge"
+  ],
+  "capabilitiesOptions": {
+    "measure_voltage": {
+      "title": {
+        "en": "Shunt volt",
+        "sv": "Shunt spänning"
+      }
+    },
+    "measure_current": {
+      "title": {
+        "en": "Shunt current",
+        "sv": "Shunt ström"
+      }
+    },
+    "measure_voltage.cellMin": {
+      "title": {
+        "en": "Min cell volt",
+        "sv": "Lägsta cellspänning"
+      }
+    },
+    "measure_voltage.cellMax": {
+      "title": {
+        "en": "Max cell volt",
+        "sv": "Högsta cellspänning"
+      }
+    },
+    "measure_temperature.cellMin": {
+      "title": {
+        "en": "Min cell temp",
+        "sv": "Lägsta celltemp."
+      }
+    },
+    "measure_temperature.cellMax": {
+      "title": {
+        "en": "Max cell temp",
+        "sv": "Högsta celltemp."
+      }
+    },
+    "operational_status.ChargePowerRate": {
+      "title": {
+        "en": "Charge rate state",
+        "sv": "Laddhastighet"
+      }
+    },
+    "operational_status.DischargePowerRate": {
+      "title": {
+        "en": "Discharge rate state",
+        "sv": "Urladdningshastighet"
+      }
+    },
+    "meter_power.charge": {
+      "title": {
+        "en": "Cumulative charge",
+        "sv": "Total laddning"
+      }
+    },
+    "meter_power.discharge": {
+      "title": {
+        "en": "Cumulative discharge",
+        "sv": "Total urladdning"
+      }
+    }
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Settings",
+        "sv": "Inställningar"
+      },
+      "children": [
+        {
+          "id": "refreshInterval",
+          "type": "number",
+          "value": 3,
+          "step": 1,
+          "attr": {
+            "min": 1,
+            "max": 3600
+          },
+          "label": {
+            "en": "Refresh interval",
+            "sv": "Uppdateringsfrekvens"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Information",
+        "sv": "Information"
+      },
+      "children": [
+        {
+          "id": "hardwareVersion",
+          "type": "label",
+          "label": {
+            "en": "Hardware version",
+            "sv": "Hårdvaruversion"
+          },
+          "value": ""
+        },
+        {
+          "id": "firmwareVersion",
+          "type": "label",
+          "label": {
+            "en": "Firmware version",
+            "sv": "Mjukvaruversion"
+          },
+          "value": ""
+        },
+        {
+          "id": "numOfCellsActive",
+          "type": "label",
+          "label": {
+            "en": "Numer of active cells",
+            "sv": "Antal aktiva celler"
+          },
+          "value": ""
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Debug",
+        "sv": "Felsökning"
+      },
+      "children": [
+        {
+          "id": "last_error",
+          "type": "textarea",
+          "label": {
+            "en": "Most recent API error",
+            "sv": "Senaste API felmeddelandet"
+          },
+          "value": ""
+        }
+      ]
+    }
+  ]
+}
