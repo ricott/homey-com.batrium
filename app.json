@@ -32,10 +32,10 @@
       "energi"
     ]
   },
-  "permissions": [],
   "images": {
-    "large": "/assets/images/large.png",
-    "small": "/assets/images/small.png"
+    "xlarge": "/assets/images/xlarge.jpg",
+    "large": "/assets/images/large.jpg",
+    "small": "/assets/images/small.jpg"
   },
   "author": {
     "name": "Richard Barkestam",
@@ -169,6 +169,28 @@
             "example": {
               "en": "80"
             }
+          },
+          {
+            "name": "cellMinVolt",
+            "type": "number",
+            "title": {
+              "en": "Min (V)",
+              "sv": "Lägsta (V)"
+            },
+            "example": {
+              "en": "3.41"
+            }
+          },
+          {
+            "name": "cellMaxVolt",
+            "type": "number",
+            "title": {
+              "en": "Max (V)",
+              "sv": "Högsta (V)"
+            },
+            "example": {
+              "en": "3.50"
+            }
           }
         ],
         "args": [
@@ -178,82 +200,35 @@
             "filter": "driver_id=watchmon"
           }
         ]
-      }
-    ],
-    "conditions": [
-      {
-        "id": "phaseUtilized",
-        "title": {
-          "en": "A phase is utilized !{{above|below}}",
-          "sv": "En fas är utnyttjad !{{över|under}}"
-        },
-        "titleFormatted": {
-          "en": "Phase [[phase]] is utilized !{{above|below}} [[utilization]]%",
-          "sv": "Fas [[phase]] är utnyttjad !{{över|under}} [[utilization]]%"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=watchmon"
-          },
-          {
-            "name": "phase",
-            "type": "dropdown",
-            "values": [
-              {
-                "id": "L1",
-                "label": {
-                  "en": "L1"
-                }
-              },
-              {
-                "id": "L2",
-                "label": {
-                  "en": "L2"
-                }
-              },
-              {
-                "id": "L3",
-                "label": {
-                  "en": "L3"
-                }
-              }
-            ]
-          },
-          {
-            "name": "utilization",
-            "type": "number",
-            "title": {
-              "en": "Utilization (%)",
-              "sv": "Utnyttjad (%)"
-            }
-          }
-        ]
       },
       {
-        "id": "anyPhaseUtilized",
+        "id": "soc_changed",
         "title": {
-          "en": "Any phase is utilized !{{above|below}}",
-          "sv": "Någon fas är utnyttjad !{{över|under}}"
+          "en": "SoC changed",
+          "sv": "SoC ändrades"
         },
         "titleFormatted": {
-          "en": "Any phase is utilized !{{above|below}} [[utilization]]%",
-          "sv": "Någon fas är utnyttjad !{{över|under}} [[utilization]]%"
+          "en": "SoC changed to [[soc]]",
+          "sv": "SoC ändrades till [[soc]]"
         },
+        "tokens": [
+          {
+            "name": "soc",
+            "type": "number",
+            "title": {
+              "en": "SoC (%)",
+              "sv": "SoC (%)"
+            },
+            "example": {
+              "en": "33.5"
+            }
+          }
+        ],
         "args": [
           {
             "type": "device",
             "name": "device",
             "filter": "driver_id=watchmon"
-          },
-          {
-            "name": "utilization",
-            "type": "number",
-            "title": {
-              "en": "Utilization (%)",
-              "sv": "Utnyttjad (%)"
-            }
           }
         ]
       }
@@ -266,15 +241,18 @@
         "sv": "Watchmon"
       },
       "images": {
-        "large": "drivers/watchmon/assets/images/large.png",
-        "small": "drivers/watchmon/assets/images/small.png"
+        "xlarge": "drivers/watchmon/assets/images/xlarge.jpg",
+        "large": "drivers/watchmon/assets/images/large.jpg",
+        "small": "drivers/watchmon/assets/images/small.jpg"
       },
       "class": "sensor",
       "capabilities": [
+        "measure_power",
+        "measure_current",
         "operational_status",
         "battery_capacity",
         "measure_voltage",
-        "measure_current",
+        "remaining_capacity",
         "measure_voltage.cellMin",
         "measure_voltage.cellMax",
         "measure_temperature.cellMin",
@@ -444,10 +422,12 @@
   "capabilities": {
     "battery_capacity": {
       "type": "number",
+      "decimals": 2,
       "title": {
         "en": "Battery SoC",
         "sv": "Batteri SoC"
       },
+      "insights": true,
       "getable": true,
       "setable": false,
       "uiComponent": "sensor",
@@ -467,6 +447,23 @@
       "setable": false,
       "uiComponent": "sensor",
       "icon": "/assets/operational_status.svg"
+    },
+    "remaining_capacity": {
+      "type": "number",
+      "decimals": 2,
+      "title": {
+        "en": "Remaining capacity",
+        "sv": "Återstående kapacitet"
+      },
+      "insights": true,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery_capacity.svg",
+      "units": {
+        "en": "kWh",
+        "sv": "kWh"
+      }
     }
   }
 }

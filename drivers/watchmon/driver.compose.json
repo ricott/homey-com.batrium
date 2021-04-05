@@ -4,15 +4,18 @@
     "sv": "Watchmon"
   },
   "images": {
-    "large": "drivers/watchmon/assets/images/large.png",
-    "small": "drivers/watchmon/assets/images/small.png"
+    "xlarge": "drivers/watchmon/assets/images/xlarge.jpg",
+    "large": "drivers/watchmon/assets/images/large.jpg",
+    "small": "drivers/watchmon/assets/images/small.jpg"
   },
   "class": "sensor",
   "capabilities": [
+    "measure_power",
+    "measure_current",
     "operational_status",
     "battery_capacity",
     "measure_voltage",
-    "measure_current",
+    "remaining_capacity",
     "measure_voltage.cellMin",
     "measure_voltage.cellMax",
     "measure_temperature.cellMin",

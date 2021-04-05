@@ -12,5 +12,9 @@
     "homey-log": "^2.0.1"
   },
   "author": "Richard Barkestam",
-  "license": "GPL-3.0-only"
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricott/homey-com.batrium.git"
+  }
 }

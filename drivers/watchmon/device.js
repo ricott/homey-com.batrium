@@ -41,6 +41,7 @@ class WatchmonDevice extends Device {
         let self = this;
 
         self.watchmon.api.on('liveDisplay', message => {
+            self._updateProperty('remaining_capacity', message.nomCapacityToEmpty);
             self._updateProperty('measure_temperature.cellMin', message.minCellTemp);
             self._updateProperty('measure_temperature.cellMax', message.maxCellTemp);
             self._updateProperty('meter_power.charge', message.shuntCumulkWhCharge);
@@ -51,6 +52,7 @@ class WatchmonDevice extends Device {
 
             self._updateProperty('operational_status', enums.decodeOpMode(message.systemOpStatus));
             self._updateProperty('battery_capacity', message.shuntSOC);
+            self._updateProperty('measure_power', message.shuntPowerVA);
             self._updateProperty('measure_voltage', message.shuntVoltage);
             self._updateProperty('measure_current', message.shuntCurrent);
             self._updateProperty('measure_voltage.cellMin', message.minCellVolt);
@@ -105,46 +107,58 @@ class WatchmonDevice extends Device {
     }
 
     _updateProperty(key, value) {
-        if (this.isCapabilityValueChanged(key, value)) {
-            this.setCapabilityValue(key, value);
+        //Ignore unknown capabilities
+        if (this.hasCapability(key)) {
+            //All trigger logic only applies to changed values
+            if (this.isCapabilityValueChanged(key, value)) {
+                this.setCapabilityValue(key, value);
 
-            if (key == 'operational_status') {
-                let tokens = {
-                    status: value
-                }
-                this.driver.triggerDeviceFlow('operational_status_changed', tokens, this);
-
-            } else if (key == 'operational_status.ChargePowerRate') {
-                let tokens = {
-                    status: value
-                }
-                this.driver.triggerDeviceFlow('charge_rate_status_changed', tokens, this);
-
-            } else if (key == 'operational_status.DischargePowerRate') {
-                let tokens = {
-                    status: value
-                }
-                this.driver.triggerDeviceFlow('discharge_rate_status_changed', tokens, this);
-
-            } else if (key == 'measure_voltage.cellMax') {
-                let voltDiff = value - this.getCapabilityValue('measure_voltage.cellMin');
-                voltDiff = parseFloat((voltDiff*1000).toFixed(0));
-                if (this.watchmon.cellVoltDiff != null) {
-                    if (this.watchmon.cellVoltDiff != voltDiff) {
-                        this.watchmon.cellVoltDiff = voltDiff;
-                        let tokens = {
-                            difference: voltDiff //mV
-                        }
-                        this.driver.triggerDeviceFlow('cell_volt_diff_changed', tokens, this);
+                if (key == 'operational_status') {
+                    let tokens = {
+                        status: value
                     }
-                } else {
-                    //First update since start of app
-                    this.watchmon.cellVoltDiff = voltDiff;
+                    this.driver.triggerDeviceFlow('operational_status_changed', tokens, this);
+
+                } else if (key == 'operational_status.ChargePowerRate') {
+                    let tokens = {
+                        status: value
+                    }
+                    this.driver.triggerDeviceFlow('charge_rate_status_changed', tokens, this);
+
+                } else if (key == 'operational_status.DischargePowerRate') {
+                    let tokens = {
+                        status: value
+                    }
+                    this.driver.triggerDeviceFlow('discharge_rate_status_changed', tokens, this);
+
+                } else if (key == 'measure_voltage.cellMax') {
+                    let cellMinVolt = this.getCapabilityValue('measure_voltage.cellMin');
+                    let voltDiff = value - cellMinVolt;
+                    voltDiff = parseFloat((voltDiff * 1000).toFixed(0));
+                    if (this.watchmon.cellVoltDiff != null) {
+                        if (this.watchmon.cellVoltDiff != voltDiff) {
+                            this.watchmon.cellVoltDiff = voltDiff;
+                            let tokens = {
+                                difference: voltDiff, //mV
+                                cellMinVolt: cellMinVolt,
+                                cellMaxVolt: value
+                            }
+                            this.driver.triggerDeviceFlow('cell_volt_diff_changed', tokens, this);
+                        }
+                    } else {
+                        //First update since start of app
+                        this.watchmon.cellVoltDiff = voltDiff;
+                    }
+                } else if (key == 'battery_capacity') {
+                    let tokens = {
+                        soc: value
+                    }
+                    this.driver.triggerDeviceFlow('soc_changed', tokens, this);
                 }
+            } else {
+                //Update value to refresh timestamp in app
+                this.setCapabilityValue(key, value);
             }
-        } else {
-            //Update value to refresh timestamp in app
-            this.setCapabilityValue(key, value);
         }
     }
 

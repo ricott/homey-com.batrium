@@ -93,6 +93,52 @@
           "example": {
             "en": "80"
           }
+        },
+        {
+          "name": "cellMinVolt",
+          "type": "number",
+          "title": {
+            "en": "Min (V)",
+            "sv": "Lägsta (V)"
+          },
+          "example": {
+            "en": "3.41"
+          }
+        },
+        {
+          "name": "cellMaxVolt",
+          "type": "number",
+          "title": {
+            "en": "Max (V)",
+            "sv": "Högsta (V)"
+          },
+          "example": {
+            "en": "3.50"
+          }
+        }
+      ]
+    },
+    {
+      "id": "soc_changed",
+      "title": {
+        "en": "SoC changed",
+        "sv": "SoC ändrades"
+      },
+      "titleFormatted": {
+        "en": "SoC changed to [[soc]]",
+        "sv": "SoC ändrades till [[soc]]"
+      },
+      "tokens": [
+        {
+          "name": "soc",
+          "type": "number",
+          "title": {
+            "en": "SoC (%)",
+            "sv": "SoC (%)"
+          },
+          "example": {
+            "en": "33.5"
+          }
         }
       ]
     }

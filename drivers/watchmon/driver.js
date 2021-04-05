@@ -19,6 +19,7 @@ class WatchmonDriver extends Driver {
         this.flowCards['charge_rate_status_changed'] = this.homey.flow.getDeviceTriggerCard('charge_rate_status_changed');
         this.flowCards['discharge_rate_status_changed'] = this.homey.flow.getDeviceTriggerCard('discharge_rate_status_changed');
         this.flowCards['cell_volt_diff_changed'] = this.homey.flow.getDeviceTriggerCard('cell_volt_diff_changed');
+        this.flowCards['soc_changed'] = this.homey.flow.getDeviceTriggerCard('soc_changed');
     }
 
 	triggerDeviceFlow(flow, tokens, device) {

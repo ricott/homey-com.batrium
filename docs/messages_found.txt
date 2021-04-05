@@ -34,7 +34,7 @@ Adding to messageIds: 5732
   maxCellVolt: 3.48,
   minCellTemp: 11,
   numOfCellsActive: 64,
-  ShuntSOC: 93.5,
+  shuntSOC: 93.5,
   shuntVoltage: 53.21,
   shuntCurrent: -0.08146306610107422
 }
