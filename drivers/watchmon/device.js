@@ -11,9 +11,6 @@ class WatchmonDevice extends Device {
     async onInit() {
         this.log(`[${this.getName()}] Watchmon device initiated`);
 
-        this.pollIntervals = [];
-        this.refreshInterval = this.getSettings().refreshInterval || 2;
-
         this.watchmon = {
             id: this.getData().id,
             systemId: this.getData().systemId,
@@ -37,6 +34,25 @@ class WatchmonDevice extends Device {
         });
     }
 
+    calculateMaxCellVoltDiff(minCellVolt, maxCellVolt) {
+        let voltDiff = maxCellVolt - minCellVolt;
+        voltDiff = parseFloat((voltDiff * 1000).toFixed(0));
+        if (this.watchmon.cellVoltDiff != null) {
+            if (this.watchmon.cellVoltDiff != voltDiff) {
+                this.watchmon.cellVoltDiff = voltDiff;
+                let tokens = {
+                    difference: voltDiff, //mV
+                    cellMinVolt: minCellVolt,
+                    cellMaxVolt: maxCellVolt
+                }
+                this.driver.triggerDeviceFlow('cell_volt_diff_changed', tokens, this);
+            }
+        } else {
+            //First update since start of app
+            this.watchmon.cellVoltDiff = voltDiff;
+        }
+    }
+
     _initializeEventListeners() {
         let self = this;
 
@@ -57,6 +73,8 @@ class WatchmonDevice extends Device {
             self._updateProperty('measure_current', message.shuntCurrent);
             self._updateProperty('measure_voltage.cellMin', message.minCellVolt);
             self._updateProperty('measure_voltage.cellMax', message.maxCellVolt);
+            self.calculateMaxCellVoltDiff(message.minCellVolt, message.maxCellVolt);
+
             self._updateProperty('operational_status.ChargePowerRate',
                 enums.decodePowerRateState(message.chargePowerRateState));
             self._updateProperty('operational_status.DischargePowerRate',
@@ -131,24 +149,6 @@ class WatchmonDevice extends Device {
                     }
                     this.driver.triggerDeviceFlow('discharge_rate_status_changed', tokens, this);
 
-                } else if (key == 'measure_voltage.cellMax') {
-                    let cellMinVolt = this.getCapabilityValue('measure_voltage.cellMin');
-                    let voltDiff = value - cellMinVolt;
-                    voltDiff = parseFloat((voltDiff * 1000).toFixed(0));
-                    if (this.watchmon.cellVoltDiff != null) {
-                        if (this.watchmon.cellVoltDiff != voltDiff) {
-                            this.watchmon.cellVoltDiff = voltDiff;
-                            let tokens = {
-                                difference: voltDiff, //mV
-                                cellMinVolt: cellMinVolt,
-                                cellMaxVolt: value
-                            }
-                            this.driver.triggerDeviceFlow('cell_volt_diff_changed', tokens, this);
-                        }
-                    } else {
-                        //First update since start of app
-                        this.watchmon.cellVoltDiff = voltDiff;
-                    }
                 } else if (key == 'battery_capacity') {
                     let tokens = {
                         soc: value
@@ -182,16 +182,6 @@ class WatchmonDevice extends Device {
         this.log(`Renaming Watchmon from '${this.watchmon.name}' to '${name}'`);
         this.watchmon.name = name;
     }
-
-    async onSettings(oldSettings, newSettings, changedKeysArr) {
-
-        if (changedKeysArr.indexOf("refreshInterval") > -1) {
-            this.log('Refresh interval value was change to:', newSettings.refreshInterval);
-            this.refreshInterval = newSettings.refreshInterval;
-        }
-
-    }
-
 }
 
 module.exports = WatchmonDevice;

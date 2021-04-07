@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.batrium",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "name": {
@@ -53,6 +53,7 @@
     "url": "https://github.com/ricott/homey-com.batrium/issues"
   },
   "source": "https://github.com/ricott/homey-com.batrium",
+  "homeyCommunityTopicId": 45884,
   "flow": {
     "triggers": [
       {
@@ -232,6 +233,179 @@
           }
         ]
       }
+    ],
+    "conditions": [
+      {
+        "id": "operational_status_condition",
+        "title": {
+          "en": "Status is !{{|not}}",
+          "sv": "Status är !{{|inte}}"
+        },
+        "titleFormatted": {
+          "en": "Status is !{{|not}} [[status]]",
+          "sv": "Status är !{{|inte}} [[status]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+          },
+          {
+            "name": "status",
+            "type": "dropdown",
+            "title": {
+              "en": "Status",
+              "sv": "Status"
+            },
+            "values": [
+              {
+                "id": "Simulator",
+                "label": {
+                  "en": "Simulator",
+                  "sv": "Simulator"
+                }
+              },
+              {
+                "id": "Idle",
+                "label": {
+                  "en": "Idle",
+                  "sv": "Idle"
+                }
+              },
+              {
+                "id": "Discharging",
+                "label": {
+                  "en": "Discharging",
+                  "sv": "Discharging"
+                }
+              },
+              {
+                "id": "SoC Empty",
+                "label": {
+                  "en": "SoC Empty",
+                  "sv": "SoC Empty"
+                }
+              },
+              {
+                "id": "Charging",
+                "label": {
+                  "en": "Charging",
+                  "sv": "Charging"
+                }
+              },
+              {
+                "id": "Full",
+                "label": {
+                  "en": "Full",
+                  "sv": "Full"
+                }
+              },
+              {
+                "id": "Timeout",
+                "label": {
+                  "en": "Timeout",
+                  "sv": "Timeout"
+                }
+              },
+              {
+                "id": "Critical Pending",
+                "label": {
+                  "en": "Critical Pending",
+                  "sv": "Critical Pending"
+                }
+              },
+              {
+                "id": "Critical Offline",
+                "label": {
+                  "en": "Critical Offline",
+                  "sv": "Critical Offline"
+                }
+              },
+              {
+                "id": "Mqtt Offline",
+                "label": {
+                  "en": "Mqtt Offline",
+                  "sv": "Mqtt Offline"
+                }
+              },
+              {
+                "id": "Auth Setup",
+                "label": {
+                  "en": "Auth Setup",
+                  "sv": "Auth Setup"
+                }
+              },
+              {
+                "id": "Shunt Timeout",
+                "label": {
+                  "en": "Shunt Timeout",
+                  "sv": "Shunt Timeout"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "battery_soc_condition",
+        "title": {
+          "en": "Battery SoC is !{{below|above}}",
+          "sv": "Batteriets nivå är !{{under|över}}"
+        },
+        "titleFormatted": {
+          "en": "Battery SoC is !{{below|above}} [[soc]]",
+          "sv": "Batteriets SoC är !{{under|över}} [[soc]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+          },
+          {
+            "name": "soc",
+            "type": "range",
+            "title": {
+              "en": "SoC",
+              "sv": "SoC"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 0.5,
+            "label": "%"
+          }
+        ]
+      },
+      {
+        "id": "cell_diff_condition",
+        "title": {
+          "en": "Maximum cell volt diff is !{{below|above}}",
+          "sv": "Största cell volt skillnaden är !{{under|över}}"
+        },
+        "titleFormatted": {
+          "en": "Maximum cell volt diff is !{{below|above}} [[volt]]",
+          "sv": "Största cell volt skillnaden är !{{under|över}} [[volt]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+          },
+          {
+            "name": "volt",
+            "type": "number",
+            "title": {
+              "en": "Diff (mV)",
+              "sv": "Diff (mV)"
+            },
+            "min": 0,
+            "max": 4000,
+            "step": 1
+          }
+        ]
+      }
     ]
   },
   "drivers": [
@@ -338,29 +512,6 @@
         }
       ],
       "settings": [
-        {
-          "type": "group",
-          "label": {
-            "en": "Settings",
-            "sv": "Inställningar"
-          },
-          "children": [
-            {
-              "id": "refreshInterval",
-              "type": "number",
-              "value": 3,
-              "step": 1,
-              "attr": {
-                "min": 1,
-                "max": 3600
-              },
-              "label": {
-                "en": "Refresh interval",
-                "sv": "Uppdateringsfrekvens"
-              }
-            }
-          ]
-        },
         {
           "type": "group",
           "label": {
