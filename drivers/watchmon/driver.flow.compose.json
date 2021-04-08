@@ -1,14 +1,14 @@
 {
   "triggers": [
     {
-      "id": "operational_status_changed",
+      "id": "battery_status_changed",
       "title": {
-        "en": "Status changed",
-        "sv": "Status ändrades"
+        "en": "Battery status changed",
+        "sv": "Batteristatus ändrades"
       },
       "titleFormatted": {
-        "en": "Status changed to [[status]]",
-        "sv": "Status ändrades till [[status]]"
+        "en": "Battery status changed to [[status]]",
+        "sv": "Batteristatus ändrades till [[status]]"
       },
       "tokens": [
         {
@@ -145,109 +145,23 @@
   ],
   "conditions": [
     {
-      "id": "operational_status_condition",
+      "id": "battery_status_condition",
       "title": {
-        "en": "Status is !{{|not}}",
-        "sv": "Status är !{{|inte}}"
+        "en": "Battery status is !{{|not}}",
+        "sv": "Batteristatus är !{{|inte}}"
       },
       "titleFormatted": {
-        "en": "Status is !{{|not}} [[status]]",
-        "sv": "Status är !{{|inte}} [[status]]"
+        "en": "Battery status is !{{|not}} [[status]]",
+        "sv": "Batteristatus är !{{|inte}} [[status]]"
       },
       "args": [
         {
           "name": "status",
-          "type": "dropdown",
+          "type": "autocomplete",
           "title": {
             "en": "Status",
             "sv": "Status"
-          },
-          "values": [
-            {
-              "id": "Simulator",
-              "label": {
-                "en": "Simulator",
-                "sv": "Simulator"
-              }
-            },
-            {
-              "id": "Idle",
-              "label": {
-                "en": "Idle",
-                "sv": "Idle"
-              }
-            },
-            {
-              "id": "Discharging",
-              "label": {
-                "en": "Discharging",
-                "sv": "Discharging"
-              }
-            },
-            {
-              "id": "SoC Empty",
-              "label": {
-                "en": "SoC Empty",
-                "sv": "SoC Empty"
-              }
-            },
-            {
-              "id": "Charging",
-              "label": {
-                "en": "Charging",
-                "sv": "Charging"
-              }
-            },
-            {
-              "id": "Full",
-              "label": {
-                "en": "Full",
-                "sv": "Full"
-              }
-            },
-            {
-              "id": "Timeout",
-              "label": {
-                "en": "Timeout",
-                "sv": "Timeout"
-              }
-            },
-            {
-              "id": "Critical Pending",
-              "label": {
-                "en": "Critical Pending",
-                "sv": "Critical Pending"
-              }
-            },
-            {
-              "id": "Critical Offline",
-              "label": {
-                "en": "Critical Offline",
-                "sv": "Critical Offline"
-              }
-            },
-            {
-              "id": "Mqtt Offline",
-              "label": {
-                "en": "Mqtt Offline",
-                "sv": "Mqtt Offline"
-              }
-            },
-            {
-              "id": "Auth Setup",
-              "label": {
-                "en": "Auth Setup",
-                "sv": "Auth Setup"
-              }
-            },
-            {
-              "id": "Shunt Timeout",
-              "label": {
-                "en": "Shunt Timeout",
-                "sv": "Shunt Timeout"
-              }
-            }
-          ]
+          }
         }
       ]
     },

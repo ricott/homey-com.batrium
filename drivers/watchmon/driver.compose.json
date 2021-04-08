@@ -12,7 +12,7 @@
   "capabilities": [
     "measure_power",
     "measure_current",
-    "operational_status",
+    "battery_status",
     "battery_capacity",
     "measure_voltage",
     "remaining_capacity",
@@ -20,8 +20,8 @@
     "measure_voltage.cellMax",
     "measure_temperature.cellMin",
     "measure_temperature.cellMax",
-    "operational_status.ChargePowerRate",
-    "operational_status.DischargePowerRate",
+    "powerrate_status.Charge",
+    "powerrate_status.Discharge",
     "meter_power.charge",
     "meter_power.discharge"
   ],
@@ -62,13 +62,13 @@
         "sv": "Högsta celltemp."
       }
     },
-    "operational_status.ChargePowerRate": {
+    "powerrate_status.Charge": {
       "title": {
         "en": "Charge rate state",
         "sv": "Laddhastighet"
       }
     },
-    "operational_status.DischargePowerRate": {
+    "powerrate_status.Discharge": {
       "title": {
         "en": "Discharge rate state",
         "sv": "Urladdningshastighet"

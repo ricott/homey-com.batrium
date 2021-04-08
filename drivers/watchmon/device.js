@@ -66,7 +66,7 @@ class WatchmonDevice extends Device {
 
         self.watchmon.api.on('discoveryMessage', message => {
 
-            self._updateProperty('operational_status', enums.decodeOpMode(message.systemOpStatus));
+            self._updateProperty('battery_status', enums.decodeBatteryStatus(message.systemOpStatus));
             self._updateProperty('battery_capacity', message.shuntSOC);
             self._updateProperty('measure_power', message.shuntPowerVA);
             self._updateProperty('measure_voltage', message.shuntVoltage);
@@ -75,9 +75,9 @@ class WatchmonDevice extends Device {
             self._updateProperty('measure_voltage.cellMax', message.maxCellVolt);
             self.calculateMaxCellVoltDiff(message.minCellVolt, message.maxCellVolt);
 
-            self._updateProperty('operational_status.ChargePowerRate',
+            self._updateProperty('powerrate_status.Charge',
                 enums.decodePowerRateState(message.chargePowerRateState));
-            self._updateProperty('operational_status.DischargePowerRate',
+            self._updateProperty('powerrate_status.Discharge',
                 enums.decodePowerRateState(message.dischargePowerRateState));
 
             if (message.systemHardwareVersion != self.watchmon.systemHardwareVersion) {
@@ -131,19 +131,19 @@ class WatchmonDevice extends Device {
             if (this.isCapabilityValueChanged(key, value)) {
                 this.setCapabilityValue(key, value);
 
-                if (key == 'operational_status') {
+                if (key == 'battery_status') {
                     let tokens = {
                         status: value
                     }
-                    this.driver.triggerDeviceFlow('operational_status_changed', tokens, this);
+                    this.driver.triggerDeviceFlow('battery_status_changed', tokens, this);
 
-                } else if (key == 'operational_status.ChargePowerRate') {
+                } else if (key == 'powerrate_status.Charge') {
                     let tokens = {
                         status: value
                     }
                     this.driver.triggerDeviceFlow('charge_rate_status_changed', tokens, this);
 
-                } else if (key == 'operational_status.DischargePowerRate') {
+                } else if (key == 'powerrate_status.Discharge') {
                     let tokens = {
                         status: value
                     }

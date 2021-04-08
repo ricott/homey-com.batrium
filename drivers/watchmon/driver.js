@@ -2,6 +2,7 @@
 
 const { Driver } = require('homey');
 const Watchmon = require('../../lib/batrium.js');
+const enums = require('../../lib/enums.js');
 
 class WatchmonDriver extends Driver {
 
@@ -15,27 +16,34 @@ class WatchmonDriver extends Driver {
         this.log('Registering flows');
 
         // Register device triggers
-        this.flowCards['operational_status_changed'] = this.homey.flow.getDeviceTriggerCard('operational_status_changed');
+        this.flowCards['battery_status_changed'] = this.homey.flow.getDeviceTriggerCard('battery_status_changed');
         this.flowCards['charge_rate_status_changed'] = this.homey.flow.getDeviceTriggerCard('charge_rate_status_changed');
         this.flowCards['discharge_rate_status_changed'] = this.homey.flow.getDeviceTriggerCard('discharge_rate_status_changed');
         this.flowCards['cell_volt_diff_changed'] = this.homey.flow.getDeviceTriggerCard('cell_volt_diff_changed');
         this.flowCards['soc_changed'] = this.homey.flow.getDeviceTriggerCard('soc_changed');
 
         //Conditions
-        this.flowCards['operational_status_condition'] =
-            this.homey.flow.getConditionCard('operational_status_condition')
+        this.flowCards['battery_status_condition'] =
+            this.homey.flow.getConditionCard('battery_status_condition')
                 .registerRunListener(async (args, state) => {
-                    this.log(`[${args.device.getName()}] Condition 'operational_status_condition' triggered`);
-                    let status = args.device.getCapabilityValue('operational_status');
+                    this.log(`[${args.device.getName()}] Condition 'battery_status_condition' triggered`);
+                    let status = args.device.getCapabilityValue('battery_status');
                     this.log(`[${args.device.getName()}] status: ${status}`);
-                    this.log(`[${args.device.getName()}] condition.status: ${args.status}`);
+                    this.log(`[${args.device.getName()}] condition.status: ${args.status.name}`);
 
-                    if (status == args.status) {
+                    if (status == args.status.name) {
                         return true;
                     } else {
                         return false;
                     }
                 });
+
+        this.flowCards['battery_status_condition']
+            .registerArgumentAutocompleteListener('status',
+                async (query, args) => {
+                    return enums.getBatteryStatuses();
+                }
+            );
 
         this.flowCards['battery_soc_condition'] =
             this.homey.flow.getConditionCard('battery_soc_condition')
