@@ -43,7 +43,8 @@ class WatchmonDevice extends Device {
                 let tokens = {
                     difference: voltDiff, //mV
                     cellMinVolt: minCellVolt,
-                    cellMaxVolt: maxCellVolt
+                    cellMaxVolt: maxCellVolt,
+                    batteryVolt: this.getCapabilityValue('measure_voltage')
                 }
                 this.driver.triggerDeviceFlow('cell_volt_diff_changed', tokens, this);
             }

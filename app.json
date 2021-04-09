@@ -192,6 +192,17 @@
             "example": {
               "en": "3.50"
             }
+          },
+          {
+            "name": "batteryVolt",
+            "type": "number",
+            "title": {
+              "en": "Battery volt (V)",
+              "sv": "Batterispänning (V)"
+            },
+            "example": {
+              "en": "51.2"
+            }
           }
         ],
         "args": [
