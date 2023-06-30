@@ -1,5 +1,17 @@
 'use strict';
 
-const Batrium = require('../lib/batrium.js');
+const Watchmon = require('../lib/batrium.js');
 
-let bb = new Batrium({});
+let bb = new Watchmon({ systemId: '7364' });
+
+
+bb.on('liveDisplay', message => {
+    console.log(message);
+});
+
+/*
+bb.on('HwShuntMetrics', message => {
+    console.log(message);
+});
+*/
+
