@@ -3,7 +3,6 @@
 const { Device } = require('homey');
 const Watchmon = require('../../lib/batrium.js');
 const enums = require('../../lib/enums.js');
-const dateFormat = require("dateformat");
 
 class WatchmonDevice extends Device {
 
@@ -123,7 +122,8 @@ class WatchmonDevice extends Device {
                 }
             }
 
-            self.setSettings({ last_error: dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss') + '\n' + message })
+            const dateTime = new Date().toISOString();
+            self.setSettings({ last_error: dateTime + '\n' + message })
                 .catch(err => {
                     self.error('Failed to update settings', err);
                 });
