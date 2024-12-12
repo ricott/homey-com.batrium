@@ -1,0 +1,31 @@
+{
+    "id": "discharge_rate_status_changed",
+    "title": {
+        "en": "Discharge rate state changed",
+        "sv": "Urladdningshastigheten ändrades"
+    },
+    "titleFormatted": {
+        "en": "Discharge rate state changed to [[status]]",
+        "sv": "Urladdningshastigheten ändrades till [[status]]"
+    },
+    "tokens": [
+        {
+            "name": "status",
+            "type": "string",
+            "title": {
+                "en": "Status",
+                "sv": "Status"
+            },
+            "example": {
+                "en": "Off"
+            }
+        }
+    ],
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+        }
+    ]
+}

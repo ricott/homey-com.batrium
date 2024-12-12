@@ -8,12 +8,15 @@
     "large": "drivers/watchmon/assets/images/large.jpg",
     "small": "drivers/watchmon/assets/images/small.jpg"
   },
-  "class": "sensor",
+  "class": "battery",
+  "energy": {
+    "homeBattery": true
+  },
   "capabilities": [
     "measure_power",
     "measure_current",
     "battery_status",
-    "battery_capacity",
+    "measure_battery",
     "measure_voltage",
     "remaining_capacity",
     "measure_voltage.cellMin",
@@ -98,62 +101,6 @@
     {
       "id": "add_devices",
       "template": "add_devices"
-    }
-  ],
-  "settings": [
-    {
-      "type": "group",
-      "label": {
-        "en": "Information",
-        "sv": "Information"
-      },
-      "children": [
-        {
-          "id": "hardwareVersion",
-          "type": "label",
-          "label": {
-            "en": "Hardware version",
-            "sv": "Hårdvaruversion"
-          },
-          "value": ""
-        },
-        {
-          "id": "firmwareVersion",
-          "type": "label",
-          "label": {
-            "en": "Firmware version",
-            "sv": "Mjukvaruversion"
-          },
-          "value": ""
-        },
-        {
-          "id": "numOfCellsActive",
-          "type": "label",
-          "label": {
-            "en": "Numer of active cells",
-            "sv": "Antal aktiva celler"
-          },
-          "value": ""
-        }
-      ]
-    },
-    {
-      "type": "group",
-      "label": {
-        "en": "Debug",
-        "sv": "Felsökning"
-      },
-      "children": [
-        {
-          "id": "last_error",
-          "type": "textarea",
-          "label": {
-            "en": "Most recent API error",
-            "sv": "Senaste API felmeddelandet"
-          },
-          "value": ""
-        }
-      ]
     }
   ]
 }

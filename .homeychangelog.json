@@ -1,4 +1,8 @@
 {
+  "0.9.5": {
+    "en": "Various improvements",
+    "sv": "Mindre förbättringar"
+  },
   "0.9.4": {
     "en": "Maintenance",
     "sv": "Underhåll"
@@ -11,7 +15,7 @@
     "en": "Flow conditions added",
     "sv": "Flow conditions added"
   },
-   "0.9.0": {
+  "0.9.0": {
     "en": "Initial version",
     "sv": "Första versionen"
   }

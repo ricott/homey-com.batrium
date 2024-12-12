@@ -1,0 +1,64 @@
+{
+    "id": "cell_volt_diff_changed",
+    "title": {
+        "en": "Maximum cell volt difference changed",
+        "sv": "Största cell volt skillnaden ändrades"
+    },
+    "titleFormatted": {
+        "en": "Maximum cell volt difference changed to [[difference]]",
+        "sv": "Största cell volt skillnaden ändrades [[difference]]"
+    },
+    "tokens": [
+        {
+            "name": "difference",
+            "type": "number",
+            "title": {
+                "en": "Difference (mV)",
+                "sv": "Skillnad (mV)"
+            },
+            "example": {
+                "en": "80"
+            }
+        },
+        {
+            "name": "cellMinVolt",
+            "type": "number",
+            "title": {
+                "en": "Min (V)",
+                "sv": "Lägsta (V)"
+            },
+            "example": {
+                "en": "3.41"
+            }
+        },
+        {
+            "name": "cellMaxVolt",
+            "type": "number",
+            "title": {
+                "en": "Max (V)",
+                "sv": "Högsta (V)"
+            },
+            "example": {
+                "en": "3.50"
+            }
+        },
+        {
+            "name": "batteryVolt",
+            "type": "number",
+            "title": {
+                "en": "Battery volt (V)",
+                "sv": "Batterispänning (V)"
+            },
+            "example": {
+                "en": "51.2"
+            }
+        }
+    ],
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+        }
+    ]
+}

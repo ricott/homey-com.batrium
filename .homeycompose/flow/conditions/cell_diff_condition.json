@@ -1,0 +1,29 @@
+{
+    "id": "cell_diff_condition",
+    "title": {
+        "en": "Maximum cell volt diff is !{{below|above}}",
+        "sv": "Största cell volt skillnaden är !{{under|över}}"
+    },
+    "titleFormatted": {
+        "en": "Maximum cell volt diff is !{{below|above}} [[volt]]",
+        "sv": "Största cell volt skillnaden är !{{under|över}} [[volt]]"
+    },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+        },
+        {
+            "name": "volt",
+            "type": "number",
+            "title": {
+                "en": "Diff (mV)",
+                "sv": "Diff (mV)"
+            },
+            "min": 0,
+            "max": 4000,
+            "step": 1
+        }
+    ]
+}

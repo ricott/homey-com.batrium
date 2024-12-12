@@ -1,0 +1,26 @@
+{
+    "id": "battery_status_condition",
+    "title": {
+        "en": "Battery status is !{{|not}}",
+        "sv": "Batteristatus är !{{|inte}}"
+    },
+    "titleFormatted": {
+        "en": "Battery status is !{{|not}} [[status]]",
+        "sv": "Batteristatus är !{{|inte}} [[status]]"
+    },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+        },
+        {
+            "name": "status",
+            "type": "autocomplete",
+            "title": {
+                "en": "Status",
+                "sv": "Status"
+            }
+        }
+    ]
+}

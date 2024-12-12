@@ -1,0 +1,31 @@
+{
+    "id": "battery_status_changed",
+    "title": {
+        "en": "Battery status changed",
+        "sv": "Batteristatus ändrades"
+    },
+    "titleFormatted": {
+        "en": "Battery status changed to [[status]]",
+        "sv": "Batteristatus ändrades till [[status]]"
+    },
+    "tokens": [
+        {
+            "name": "status",
+            "type": "string",
+            "title": {
+                "en": "Status",
+                "sv": "Status"
+            },
+            "example": {
+                "en": "Idle"
+            }
+        }
+    ],
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+        }
+    ]
+}

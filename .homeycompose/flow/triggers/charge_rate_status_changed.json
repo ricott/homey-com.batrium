@@ -1,0 +1,31 @@
+{
+    "id": "charge_rate_status_changed",
+    "title": {
+        "en": "Charge rate state changed",
+        "sv": "Laddhastigheten ändrades"
+    },
+    "titleFormatted": {
+        "en": "Charge rate state changed to [[status]]",
+        "sv": "Laddhastigheten ändrades till [[status]]"
+    },
+    "tokens": [
+        {
+            "name": "status",
+            "type": "string",
+            "title": {
+                "en": "Status",
+                "sv": "Status"
+            },
+            "example": {
+                "en": "Off"
+            }
+        }
+    ],
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+        }
+    ]
+}

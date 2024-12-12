@@ -1,0 +1,56 @@
+[
+    {
+        "type": "group",
+        "label": {
+            "en": "Information",
+            "sv": "Information"
+        },
+        "children": [
+            {
+                "id": "hardwareVersion",
+                "type": "label",
+                "label": {
+                    "en": "Hardware version",
+                    "sv": "Hårdvaruversion"
+                },
+                "value": ""
+            },
+            {
+                "id": "firmwareVersion",
+                "type": "label",
+                "label": {
+                    "en": "Firmware version",
+                    "sv": "Mjukvaruversion"
+                },
+                "value": ""
+            },
+            {
+                "id": "numOfCellsActive",
+                "type": "label",
+                "label": {
+                    "en": "Numer of active cells",
+                    "sv": "Antal aktiva celler"
+                },
+                "value": ""
+            }
+        ]
+    },
+    {
+        "type": "group",
+        "label": {
+            "en": "Debug",
+            "sv": "Felsökning"
+        },
+        "children": [
+            {
+                "id": "last_error",
+                "type": "textarea",
+                "label": {
+                    "en": "Most recent API error",
+                    "sv": "Senaste API felmeddelandet"
+                },
+                "value": ""
+            }
+        ]
+    }
+]

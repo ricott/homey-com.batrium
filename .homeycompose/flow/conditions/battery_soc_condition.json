@@ -1,0 +1,30 @@
+{
+    "id": "battery_soc_condition",
+    "title": {
+        "en": "Battery SoC is !{{below|above}}",
+        "sv": "Batteriets nivå är !{{under|över}}"
+    },
+    "titleFormatted": {
+        "en": "Battery SoC is !{{below|above}} [[soc]]",
+        "sv": "Batteriets SoC är !{{under|över}} [[soc]]"
+    },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+        },
+        {
+            "name": "soc",
+            "type": "range",
+            "title": {
+                "en": "SoC",
+                "sv": "SoC"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 0.5,
+            "label": "%"
+        }
+    ]
+}

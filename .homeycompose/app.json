@@ -1,7 +1,7 @@
 {
   "id": "com.batrium",
-  "version": "0.9.4",
-  "compatibility": ">=5.0.0",
+  "version": "0.9.5",
+  "compatibility": ">=12.1.2",
   "sdk": 3,
   "name": {
     "en": "Batrium",

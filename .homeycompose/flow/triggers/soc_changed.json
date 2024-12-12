@@ -1,0 +1,32 @@
+{
+    "id": "soc_changed",
+    "title": {
+        "en": "SoC changed",
+        "sv": "SoC ändrades"
+    },
+    "titleFormatted": {
+        "en": "SoC changed to [[soc]]",
+        "sv": "SoC ändrades till [[soc]]"
+    },
+    "tokens": [
+        {
+            "name": "soc",
+            "type": "number",
+            "title": {
+                "en": "SoC (%)",
+                "sv": "SoC (%)"
+            },
+            "example": {
+                "en": "33.5"
+            }
+        }
+    ],
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watchmon"
+        }
+    ],
+    "deprecated": true
+}

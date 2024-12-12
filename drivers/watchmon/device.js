@@ -4,10 +4,20 @@ const { Device } = require('homey');
 const Watchmon = require('../../lib/batrium.js');
 const enums = require('../../lib/enums.js');
 
+const deviceClass = 'battery';
+
 class WatchmonDevice extends Device {
 
     async onInit() {
-        this.log(`[${this.getName()}] Watchmon device initiated`);
+        this.logMessage('Watchmon device initiated');
+
+        // Change device class to evcharger if not already
+        if (this.getClass() !== deviceClass) {
+            await this.setClass(deviceClass);
+        }
+
+        // Setup capabilities
+        await this.setupCapabilities();
 
         // Register device triggers
         this._battery_status_changed = this.homey.flow.getDeviceTriggerCard('battery_status_changed');
@@ -17,28 +27,58 @@ class WatchmonDevice extends Device {
         this._soc_changed = this.homey.flow.getDeviceTriggerCard('soc_changed');
 
         this.watchmon = {
-            id: this.getData().id,
-            systemId: this.getData().systemId,
-            name: this.getName(),
-            systemFirmwareVersion: null,
-            systemHardwareVersion: null,
-            numOfCellsActive: null,
-            cellVoltDiff: null
+            cellVoltDiff: null,
+            api: null
         };
 
-        this.watchmon.api = new Watchmon({ 
-            systemId: this.watchmon.systemId,
+        this.watchmon.api = new Watchmon({
+            systemId: this.getData().systemId,
             device: this
         });
 
         this._initializeEventListeners();
     }
 
+    async setupCapabilities() {
+        this.logMessage('Setting up capabilities');
+        await this.addCapabilityHelper('measure_battery');
+        await this.removeCapabilityHelper('battery_capacity');
+    }
+
+    async removeCapabilityHelper(capability) {
+        if (this.hasCapability(capability)) {
+            try {
+                this.logMessage(`Remove existing capability '${capability}'`);
+                await this.removeCapability(capability);
+            } catch (reason) {
+                this.error(`Failed to removed capability '${capability}'`);
+                this.error(reason);
+            }
+        }
+    }
+    async addCapabilityHelper(capability) {
+        if (!this.hasCapability(capability)) {
+            try {
+                this.logMessage(`Adding missing capability '${capability}'`);
+                await this.addCapability(capability);
+            } catch (reason) {
+                this.error(`Failed to add capability '${capability}'`);
+                this.error(reason);
+            }
+        }
+    }
+
     updateSetting(key, value) {
         let obj = {};
-        obj[key] = String(value);
+        if (typeof value === 'string' || value instanceof String) {
+            obj[key] = value;
+        } else {
+            //If not of type string then make it string
+            obj[key] = String(value);
+        }
+
         this.setSettings(obj).catch(err => {
-            this.error('Failed to update settings', err);
+            this.error(`Failed to update setting '${key}' with value '${value}'`, err);
         });
     }
 
@@ -76,7 +116,7 @@ class WatchmonDevice extends Device {
         self.watchmon.api.on('discoveryMessage', message => {
 
             self._updateProperty('battery_status', enums.decodeBatteryStatus(message.systemOpStatus));
-            self._updateProperty('battery_capacity', message.shuntSOC);
+            self._updateProperty('measure_battery', message.shuntSOC);
             self._updateProperty('measure_power', message.shuntPowerVA);
             self._updateProperty('measure_voltage', message.shuntVoltage);
             self._updateProperty('measure_current', message.shuntCurrent);
@@ -89,23 +129,15 @@ class WatchmonDevice extends Device {
             self._updateProperty('powerrate_status.Discharge',
                 enums.decodePowerRateState(message.dischargePowerRateState));
 
-            if (message.systemHardwareVersion != self.watchmon.systemHardwareVersion) {
-                self.watchmon.systemHardwareVersion = message.systemHardwareVersion;
-                self.updateSetting('hardwareVersion', message.systemHardwareVersion);
-            }
-
-            if (message.systemFirmwareVersion != self.watchmon.systemFirmwareVersion) {
-                self.watchmon.systemFirmwareVersion = message.systemFirmwareVersion;
-                self.updateSetting('firmwareVersion', message.systemFirmwareVersion);
-            }
-
-            if (message.numOfCellsActive != self.watchmon.numOfCellsActive) {
-                self.watchmon.numOfCellsActive = message.numOfCellsActive;
-                self.updateSetting('numOfCellsActive', message.numOfCellsActive);
-            }
-
+            self.setSettings({
+                numOfCellsActive: String(message.numOfCellsActive),
+                firmwareVersion: String(message.systemFirmwareVersion),
+                hardwareVersion: String(message.systemHardwareVersion)
+            })
+                .catch(err => {
+                    self.error('Failed to update discoveryMessage settings', err);
+                });
         });
-
 
         self.watchmon.api.on('error', error => {
             self.error('Houston we have a problem', error);
@@ -159,7 +191,7 @@ class WatchmonDevice extends Device {
                     }
                     this._discharge_rate_status_changed.trigger(this, tokens, {}).catch(error => { this.error(error) });
 
-                } else if (key == 'battery_capacity') {
+                } else if (key == 'measure_battery') {
                     let tokens = {
                         soc: value
                     }
@@ -183,14 +215,30 @@ class WatchmonDevice extends Device {
     }
 
     onDeleted() {
-        this.log(`Deleting Watchmon '${this.getName()}' from Homey.`);
+        this.logMessage('Deleting Watchmon from Homey.');
         this.watchmon.api.disconnect();
         this.watchmon = null;
     }
 
-    onRenamed(name) {
-        this.log(`Renaming Watchmon from '${this.watchmon.name}' to '${name}'`);
-        this.watchmon.name = name;
+    logMessage(message) {
+        this.log(`[${this.getName()}] ${message}`);
+    }
+
+    logError(error) {
+        this.error(error);
+        let message = '';
+        if (this.isError(error)) {
+            message = error.stack;
+        } else {
+            try {
+                message = JSON.stringify(error, null, "  ");
+            } catch (e) {
+                this.error('Failed to stringify object', e);
+                message = error.toString();
+            }
+        }
+        let dateTime = new Date().toISOString();
+        this.updateSetting('last_error', dateTime + '\n' + message);
     }
 }
 
