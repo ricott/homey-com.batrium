@@ -10,7 +10,10 @@
   },
   "class": "battery",
   "energy": {
-    "homeBattery": true
+    "homeBattery": true,
+    "batteries": [
+      "INTERNAL"
+    ]
   },
   "capabilities": [
     "measure_power",
