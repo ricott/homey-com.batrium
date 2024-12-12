@@ -12,7 +12,7 @@
   "energy": {
     "homeBattery": true,
     "batteries": [
-      "INTERNAL"
+      "OTHER"
     ]
   },
   "capabilities": [
